@@ -1,14 +1,16 @@
 
 import json
+import os
 import re
 from typing import TypedDict
 from typing_extensions import Annotated
 from dotenv import load_dotenv
 
+from langchain.chat_models import init_chat_model
+
 from langgraph.graph import StateGraph, START, END
 from langgraph.graph.message import add_messages
 
-from src.my_llm_engine import create_llm
 from src.my_mongo_client import MyMongoClient
 
 
@@ -20,7 +22,12 @@ class State(TypedDict):
 class MongoAgent():
 
     def __init__(self):
-        self.llm = create_llm()
+        self.llm = init_chat_model(
+            model="openai/gpt-4.1-nano",
+            model_provider="openai",
+            api_key=os.environ["GITHUB_TOKEN"],
+            base_url="https://models.github.ai/inference"
+        )
         self.graph_builder = StateGraph(State)
         self.supported_operations = ["find", "insert", "update", "delete"]
 

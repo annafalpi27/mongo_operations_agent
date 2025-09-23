@@ -1,11 +1,12 @@
 [project]
-name = "leaning_langgraph"
+name = "mongo_operations_agent"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "langchain-community>=0.3.29",
+    "langchain-openai>=0.3.33",
     "langgraph>=0.6.7",
     "pymongo>=4.15.1",
     "python-dotenv>=1.1.1",
