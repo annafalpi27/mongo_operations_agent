@@ -222,8 +222,10 @@ class MongoAgent():
                 filter=parsed_mongo_filter,
                 projection=projection
             )
-
-        return {"messages": [f"Document retrieved with filter: {mongo_filter}: {result}"]}
+        if result:
+            print(f"Document retrieved with filter: {mongo_filter}: {result}")
+        else: 
+            print("No document matched the query.")
 
     def invalid_operation(self, state: State) -> dict:
         return {"messages": [f"Invalid operation. Supported operations are: {self.supported_operations}"]}
